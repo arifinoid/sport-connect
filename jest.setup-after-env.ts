@@ -1,1 +1,1 @@
-import "@testing-library/jest-native/extend-expect";
+// No additional setup needed for Zustand store tests

@@ -1,4 +1,8 @@
-// --- Web Crypto shim for Node (used by some Expo libs) ---
+// --- Fast Refresh globals (required by Zustand) ---
+(globalThis as any).$RefreshReg$ = () => {};
+(globalThis as any).$RefreshSig$ = () => (type: any) => type;
+
+// --- Web Crypto shim for Node ---
 if (!globalThis.crypto || !globalThis.crypto.getRandomValues) {
   try {
     const { webcrypto } = require("crypto");
@@ -9,19 +13,9 @@ if (!globalThis.crypto || !globalThis.crypto.getRandomValues) {
   }
 }
 
-// --- Additional polyfills for Expo ---
+// --- Additional polyfills ---
 if (typeof globalThis.TextDecoder === 'undefined') {
   const { TextDecoder, TextEncoder } = require('util');
   globalThis.TextDecoder = TextDecoder;
   globalThis.TextEncoder = TextEncoder;
 }
-
-// Mock Expo's winter runtime completely
-jest.mock('expo/src/winter/runtime.native', () => ({}));
-jest.mock('expo/src/winter/installGlobal', () => ({}));
-
-// Mock the entire expo module to prevent winter runtime issues
-jest.mock('expo', () => ({
-  ...jest.requireActual('expo'),
-  // Override any problematic exports
-}));
