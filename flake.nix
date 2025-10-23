@@ -18,7 +18,7 @@
           name = "sport-connect-dev";
           buildInputs = with pkgs; [
             nodejs_22
-            yarn
+            pnpm
             watchman
             git
             openssl
@@ -34,7 +34,7 @@
           shellHook = ''
             export NODE_ENV=development
             
-            echo "✅ Nix dev shell ready. Use: yarn, npx expo, etc."
+            echo "✅ Nix dev shell ready. Use: pnpm, npx expo, etc."
             echo "📱 Android tools available: adb (via android-tools)"
             echo ""
             
