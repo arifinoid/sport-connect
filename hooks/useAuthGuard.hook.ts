@@ -38,6 +38,7 @@ export function useAuthGuard({
       router.replace("/");
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     enabled,
     navState?.key,

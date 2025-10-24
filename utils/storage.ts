@@ -11,7 +11,7 @@ export const storage: Storage = {
         try {
             const raw = await AsyncStorage.getItem(key);
             return raw ? (JSON.parse(raw) as T) : null;
-        } catch (err) {
+        } catch (_) {
             return null;
         }
     },
@@ -19,7 +19,7 @@ export const storage: Storage = {
     async setJSON<T>(key: string, value: T) {
         try {
             await AsyncStorage.setItem(key, JSON.stringify(value));
-        } catch (err) {
+        } catch (_) {
 
         }
     },
@@ -27,7 +27,7 @@ export const storage: Storage = {
     async remove(key: string) {
         try {
             await AsyncStorage.removeItem(key);
-        } catch (err) {
+        } catch (_) {
 
         }
     },

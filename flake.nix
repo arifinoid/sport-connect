@@ -9,7 +9,7 @@
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs { 
+        pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         };
@@ -33,11 +33,11 @@
           # Helpful for node-gyp builds if any RN deps need it
           shellHook = ''
             export NODE_ENV=development
-            
+
             echo "✅ Nix dev shell ready. Use: pnpm, npx expo, etc."
             echo "📱 Android tools available: adb (via android-tools)"
             echo ""
-            
+
             # Expo Go connectivity setup
             echo "🌐 Setting up Expo Go connectivity..."
             # Get local IP address for tunnel mode
@@ -45,7 +45,7 @@
             echo "📍 Local IP detected: $LOCAL_IP"
             echo "💡 Use 'npx expo start --tunnel' if QR code doesn't work"
             echo ""
-            
+
             # Android SDK setup - check if it exists first
             ANDROID_SDK_PATH=""
             if [ -d "$HOME/Android/Sdk" ]; then
@@ -55,7 +55,7 @@
             elif [ -d "/usr/local/android-sdk" ]; then
               ANDROID_SDK_PATH="/usr/local/android-sdk"
             fi
-            
+
             if [ -n "$ANDROID_SDK_PATH" ]; then
               echo "🔧 Found Android SDK at: $ANDROID_SDK_PATH"
               export ANDROID_HOME="$ANDROID_SDK_PATH"
@@ -75,7 +75,7 @@
               unset ANDROID_HOME
               unset ANDROID_SDK_ROOT
             fi
-            
+
             # Check for Android devices and setup ADB
             echo "🔍 Checking for connected Android devices..."
             if command -v adb >/dev/null 2>&1; then
