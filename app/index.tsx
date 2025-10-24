@@ -9,6 +9,7 @@ import { useColorScheme } from "nativewind";
 import * as React from "react";
 import { FlatList, View } from "react-native";
 import { createEventStore } from "@/stores/event.store";
+import { createUserStore } from "@/stores/user.store";
 
 export default function Screen() {
   const router = useRouter();
@@ -16,6 +17,8 @@ export default function Screen() {
   const { getUpcomingEvents } = createEventStore();
 
   const data = React.useMemo(() => getUpcomingEvents(), [getUpcomingEvents]);
+  const { getCurrentUser } = createUserStore();
+  const user = getCurrentUser();
 
   return (
     <>
@@ -26,7 +29,7 @@ export default function Screen() {
             <Text className="text-2xl font-extrabold text-foreground">Upcoming Events</Text>
           </View>
 
-          <View className="flex-row gap-2">
+          {user ? <View className="flex-row gap-2">
             <Button onPress={() => router.push("/create-event")} className="ios:h-10 ios:px-4">
               <Icon color={colorScheme === 'dark' ? 'black' : 'white'} as={PlusIcon} className="mr-2 size-4" />
               <Text>Create</Text>
@@ -37,7 +40,7 @@ export default function Screen() {
                 <Text>Profile</Text>
               </Button>
             </Link>
-          </View>
+          </View> : null}
         </View>
 
         <Separator />
@@ -45,7 +48,7 @@ export default function Screen() {
         {data.length === 0 ? (
           <Card className="rounded-2xl p-4">
             <Text className="text-muted-foreground">
-              No upcoming events yet. Tap <Text className="font-semibold">Create</Text> to organize one!
+              No upcoming events yet. Login and Create to organize one!
             </Text>
           </Card>
         ) : (
