@@ -1,5 +1,5 @@
 // --- Fast Refresh globals (required by Zustand) ---
-(globalThis as any).$RefreshReg$ = () => {};
+(globalThis as any).$RefreshReg$ = () => { };
 (globalThis as any).$RefreshSig$ = () => (type: any) => type;
 
 // --- Web Crypto shim for Node ---
@@ -19,3 +19,5 @@ if (typeof globalThis.TextDecoder === 'undefined') {
   globalThis.TextDecoder = TextDecoder;
   globalThis.TextEncoder = TextEncoder;
 }
+
+jest.mock('@react-native-async-storage/async-storage');
