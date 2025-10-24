@@ -114,7 +114,7 @@ export default function EventDetails() {
         ) : (
           <Card className="rounded-2xl p-4">
             {status === "none" ? (
-              <Button onPress={handleRequest}>
+              <Button onPress={handleRequest} disabled={event.participants.length === event.limit}>
                 <Text>Request to Join</Text>
               </Button>
             ) : status === "pending" ? (
@@ -127,7 +127,7 @@ export default function EventDetails() {
           </Card>
         )}
 
-        <Button variant="ghost" onPress={() => router.back()}>
+        <Button variant="ghost" onPress={() => router.replace('/')}>
           <Text>Back to Home</Text>
         </Button>
       </View>

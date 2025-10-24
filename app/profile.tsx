@@ -32,7 +32,7 @@ export default function Profile() {
               {created.length === 0 ? (
                 <Text className="text-muted-foreground">None</Text>
               ) : (
-                created.map((e) => <Text key={e.id}>{e.title}</Text>)
+                created.map((e) => <Text key={e.id}> • {e.title}</Text>)
               )}
             </Card>
 
@@ -41,7 +41,7 @@ export default function Profile() {
               {joined.length === 0 ? (
                 <Text className="text-muted-foreground">None</Text>
               ) : (
-                joined.map((e) => <Text key={e.id}>{e.title}</Text>)
+                joined.map((e) => <Text key={e.id}> • {e.title}</Text>)
               )}
             </Card>
           </>

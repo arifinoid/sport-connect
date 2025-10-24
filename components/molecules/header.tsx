@@ -4,7 +4,7 @@ import { useRouter } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import { useColorScheme } from "nativewind";
-import { ChevronLeft, LogOut, MoonStar, Sun } from "lucide-react-native";
+import { ChevronLeft, LogOut, MoonStar, Sun, User } from "lucide-react-native";
 
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
@@ -34,6 +34,10 @@ export function Header(props: NativeStackHeaderProps) {
     router.replace("/login");
   };
 
+  const handleLogin = () => {
+    router.push("/login");
+  };
+
   return (
     <View
       className="w-full flex-row items-center justify-between px-3 py-2 md:px-4"
@@ -55,9 +59,11 @@ export function Header(props: NativeStackHeaderProps) {
       </View>
 
       <View className="flex-row items-center gap-2">
-        <Text className="text-muted-foreground">
-          {user ? `Logged in as @${user.username}` : "Not logged in"}
-        </Text>
+        {user ? (
+          <Text className="text-muted-foreground">
+            Hello, {user.username}
+          </Text>
+        ) : null}
 
         <Button
           onPressIn={toggleColorScheme}
@@ -74,12 +80,11 @@ export function Header(props: NativeStackHeaderProps) {
 
         <Button
           variant="secondary"
-          onPress={handleLogout}
-          disabled={!user}
-          accessibilityLabel="Logout"
+          onPress={user ? handleLogout : handleLogin}
+          accessibilityLabel={user ? "Logout" : "Login"}
         >
-          <Icon as={LogOut} className="mr-2 size-4" />
-          <Text>Logout</Text>
+          <Icon as={user ? LogOut : User} className="mr-2 size-4" />
+          <Text>{user ? "Logout" : "Login"}</Text>
         </Button>
       </View>
     </View>
